@@ -20,3 +20,21 @@ These rules, which compare the behavior of the automaton to real life, can be co
 The initial pattern constitutes the seed of the system. The first generation is created by **applying the above rules simultaneously to every cell in the *seed***; births and deaths occur simultaneously, and the discrete moment at which this happens is sometimes called a ***tick***. Each generation is a pure function of the preceding one. The rules continue to be applied repeatedly to create further generations.
 
 More on [wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+
+## Usage
+
+Made with [leiningen](https://leiningen.org/).
+
+#### Run
+
+`lein run`
+
+#### Test
+
+`lein test`
+
+#### Live Tests
+
+Automatically run tests when a change occurs. [Read more about it](https://medium.com/@chapuyj/automatically-run-tests-when-a-change-occurs-9bae2140586b).
+
+`live-test.sh`
