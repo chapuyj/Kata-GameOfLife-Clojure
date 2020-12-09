@@ -24,3 +24,58 @@
   (testing "Any dead cell without exactly three live neighbours stays dead."
     (is (->> (mapv (partial next-generation-cell {:alive false}) [0, 1, 2, 4, 5, 6, 7, 8])
              (every? #{{:alive false}})))))
+
+
+
+
+(defn isAlive [cell-string] (= "1" cell-string))
+
+(defn make-cell [line-number [column-number cell]] {:column column-number :line line-number})
+
+(defn make-cell-from-string-line [line-number columns] 
+  (let [alive-columns (filterv isAlive columns)
+        indexed-columns (map-indexed vector alive-columns)
+        cells (map #(make-cell line-number %) indexed-columns)]
+    (set cells)))
+
+(deftest make-cell-from-string-line-test
+
+  (testing "Create an empty line."
+    (is (= (make-cell-from-string-line 7 ["0" "0" "0" "0"])
+           #{})))
+  
+  (testing "Create a full line."
+    (is (= (make-cell-from-string-line 7 ["1" "1" "1"])
+           #{{:column 0 :line 7}
+             {:column 1 :line 7}
+             {:column 2 :line 7}}))))
+
+
+
+(defn from-string [string]
+  #{})
+
+(def empty-grid #{})
+
+(def full-grid #{{:column 0 :line 0}
+                 {:column 1 :line 0}
+                 {:column 2 :line 0}
+                 {:column 0 :line 1}
+                 {:column 2 :line 1}
+                 {:column 0 :line 2}
+                 {:column 1 :line 2}
+                 {:column 2 :line 2}})
+
+(deftest grid-from-string
+
+  (testing "Create an empty grid."
+    (is (= (from-string "0 0 0
+                         0 0 0
+                         0 0 0")
+           empty-grid)))
+  
+  (testing "Create a full grid."
+    (is (= (from-string "1 1 1
+                         1 1 1
+                         1 1 1")
+           full-grid))))
