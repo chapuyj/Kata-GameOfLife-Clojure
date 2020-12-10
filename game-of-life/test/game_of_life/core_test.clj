@@ -27,7 +27,6 @@
 
 
 
-
 (defn isAlive [cell-string] (= "1" cell-string))
 
 (defn make-cell [line-number [column-number cell]] {:column column-number :line line-number})
@@ -49,6 +48,22 @@
            #{{:column 0 :line 7}
              {:column 1 :line 7}
              {:column 2 :line 7}}))))
+
+
+
+(defn make-indexed-lines [grid-string] 
+  (let [lines-string (clojure.string/split grid-string #"\n")
+        lines-string-trimmed (mapv clojure.string/trim lines-string)
+        grid (mapv #(clojure.string/split % #" ") lines-string-trimmed)]
+    (map-indexed vector grid)))
+
+(deftest make-indexed-lines-test
+
+  (testing "Create indexed lines from grid."
+    (is (= (make-indexed-lines "0 0 1
+                                1 0 1
+                                1 1 1")
+           `([0 ["0" "0" "1"]] [1 ["1" "0" "1"]] [2 ["1" "1" "1"]])))))
 
 
 
