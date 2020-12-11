@@ -27,10 +27,10 @@
              (every? #{{:alive false}})))))
 
 
-(deftest neighbours-count
+(deftest count-alive-neighbours-test
 
-  (testing "Create indexed lines from grid."
-    (is (= (count-alive-neighbours (from-string "0 0 0
-                                                 0 0 0
-                                                 0 0 0"))
+  (testing "Should be zero with an empty grid."
+    (is (= (count-alive-neighbours {:column 1 :line 1} (from-string "0 0 0
+                                                                     0 0 0
+                                                                     0 0 0"))
            0))))

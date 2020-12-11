@@ -19,7 +19,7 @@
     (next-generation-for-alive-cell numberOfAliveNeighbours)
     (next-generation-for-dead-cell numberOfAliveNeighbours)))
 
-(defn count-alive-neighbours [alive-positions]
+(defn count-alive-neighbours [position alive-positions]
   0)
 
 ; main
