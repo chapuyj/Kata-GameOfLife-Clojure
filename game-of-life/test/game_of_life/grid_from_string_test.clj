@@ -18,13 +18,13 @@
 
 (deftest grid-from-string
 
-  (testing "Create an empty grid."
+  (testing "Create an empty grid from literate representation."
     (is (= (from-string "0 0 0
                          0 0 0
                          0 0 0")
            empty-grid)))
 
-  (testing "Create a full grid."
+  (testing "Create a full grid from literate representation."
     (is (= (from-string "1 1 1
                          1 1 1
                          1 1 1")
@@ -46,7 +46,7 @@
 
 (deftest make-indexed-lines-test
 
-  (testing "Create indexed lines from grid."
+  (testing "Create indexed lines from a grid in literate representation."
     (is (= (make-indexed-lines "0 0 1
                                 1 0 1
                                 1 1 1")
