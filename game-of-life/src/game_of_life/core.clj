@@ -19,7 +19,8 @@
     (next-generation-for-alive-cell numberOfAliveNeighbours)
     (next-generation-for-dead-cell numberOfAliveNeighbours)))
 
-; maybe i can use a map (enum -> lambda) instead of if
+(defn count-alive-neighbours [alive-positions]
+  0)
 
 ; main
 

@@ -1,6 +1,7 @@
 (ns game-of-life.core-test
   (:require [clojure.test :refer :all]
-            [game-of-life.core :refer :all]))
+            [game-of-life.core :refer :all]
+            [game-of-life.grid-from-string :refer :all]))
 
 (deftest rules
 
@@ -24,3 +25,12 @@
   (testing "Any dead cell without exactly three live neighbours stays dead."
     (is (->> (mapv (partial next-generation-cell {:alive false}) [0, 1, 2, 4, 5, 6, 7, 8])
              (every? #{{:alive false}})))))
+
+
+(deftest neighbours-count
+
+  (testing "Create indexed lines from grid."
+    (is (= (count-alive-neighbours (from-string "0 0 0
+                                                 0 0 0
+                                                 0 0 0"))
+           0))))
