@@ -33,4 +33,10 @@
     (is (= (count-alive-neighbours {:column 1 :line 1} (from-string "0 0 0
                                                                      0 0 0
                                                                      0 0 0"))
-           0))))
+           0)))
+  
+  (testing "Should be 8 with a full grid."
+    (is (= (count-alive-neighbours {:column 1 :line 1} (from-string "1 1 1
+                                                                     1 1 1
+                                                                     1 1 1"))
+           8))))
