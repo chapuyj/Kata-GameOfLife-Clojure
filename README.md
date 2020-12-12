@@ -25,7 +25,7 @@ More on [wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
 The grid is a square. The grid is represented by a map with
 - a size,
-- a set of *positions* with a living cell.
+- a set of *positions* where cells are alive.
 
 `{:size 3 :alive-positions #{{:column 1 :line 2}}}`
 
