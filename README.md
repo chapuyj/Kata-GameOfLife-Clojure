@@ -21,6 +21,18 @@ The initial pattern constitutes the seed of the system. The first generation is 
 
 More on [wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
+## Code
+
+The grid is a square. The grid is represented by a map with
+- a size,
+- a set of *positions* with a living cell.
+
+`{:size 3 :alive-positions #{{:column 1 :line 2}}}`
+
+We can apply `tick` on a grid to get the next generation.
+
+`from-string` is a literate programming to create a grid from a *human string representation*.
+
 ## Usage
 
 Made with [leiningen](https://leiningen.org/).
