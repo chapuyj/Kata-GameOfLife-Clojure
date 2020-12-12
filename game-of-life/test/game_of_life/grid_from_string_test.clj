@@ -40,18 +40,18 @@
 
 ; Technical help tests
 
-(deftest make-cell-from-string-line-test
+(deftest make-positions-from-string-line-test
 
   (testing "Create an empty line."
-    (is (= (make-cell-from-string-line 7 ["0" "0" "0" "0"])
+    (is (= (make-positions-from-string-line 7 ["0" "0" "0" "0"])
            `())))
   
   (testing "Create a partial line."
-    (is (= (make-cell-from-string-line 7 ["0" "1" "0" "0"])
+    (is (= (make-positions-from-string-line 7 ["0" "1" "0" "0"])
            `({:column 1 :line 7}))))
 
   (testing "Create a full line."
-    (is (= (make-cell-from-string-line 7 ["1" "1" "1"])
+    (is (= (make-positions-from-string-line 7 ["1" "1" "1"])
            `({:column 0 :line 7} {:column 1 :line 7} {:column 2 :line 7})))))
 
 (deftest make-indexed-lines-test
