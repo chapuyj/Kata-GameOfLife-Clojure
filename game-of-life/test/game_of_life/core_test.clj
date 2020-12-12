@@ -6,15 +6,18 @@
 (deftest rules
 
   (testing "Any live cell with fewer than two live neighbours dies, as if by underpopulation."
-    (is (->> (mapv (partial tick-cell {:alive true}) [0, 1])
+    (is (->> [0, 1]
+             (mapv (partial tick-cell {:alive true}))
              (every? #{{:alive false}}))))
 
   (testing "Any live cell with two or three live neighbours lives on to the next generation."
-    (is (->> (mapv (partial tick-cell {:alive true}) [2, 3])
+    (is (->> [2, 3]
+             (mapv (partial tick-cell {:alive true}))
              (every? #{{:alive true}}))))
 
   (testing "Any live cell with more than three live neighbours dies, as if by overpopulation."
-    (is (->> (mapv (partial tick-cell {:alive true}) [4, 5, 6, 7, 8])
+    (is (->> [4, 5, 6, 7, 8]
+             (mapv (partial tick-cell {:alive true}))
              (every? #{{:alive false}}))))
 
   (testing "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction."
@@ -23,7 +26,8 @@
 
   ; The missing rule
   (testing "Any dead cell without exactly three live neighbours stays dead."
-    (is (->> (mapv (partial tick-cell {:alive false}) [0, 1, 2, 4, 5, 6, 7, 8])
+    (is (->> [0, 1, 2, 4, 5, 6, 7, 8]
+             (mapv (partial tick-cell {:alive false}))
              (every? #{{:alive false}})))))
 
 
