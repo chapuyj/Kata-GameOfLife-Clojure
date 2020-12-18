@@ -7,12 +7,14 @@
 ; rules
 
 
+(defn alive? [cell] (= cell :alive))
+(defn dead? [cell] (= cell :dead))
 
 (defn tick-cell [cell numberOfAliveNeighbours]
-  (match [(:alive cell) numberOfAliveNeighbours]
-    [true 2] {:alive true}
-    [_ 3] {:alive true}
-    :else {:alive false}))
+  (match [cell numberOfAliveNeighbours]
+    [:alive 2] :alive
+    [_ 3] :alive
+    :else :dead))
 
 ; create grid
 
@@ -46,15 +48,13 @@
 ; tick
 
 (defn cell-state [position alive-positions]
-  {:alive (contains? alive-positions position)})
+  (if (contains? alive-positions position) :alive :dead))
 
 (defn tick-position [position alive-positions]
   (let [old-state (cell-state position alive-positions)
         alive-neighbours (count-alive-neighbours position alive-positions)
         new-state (tick-cell old-state alive-neighbours)]
-    (if (new-state :alive)
-      position
-      nil)))
+    (if (= new-state :alive) position nil)))
 
 (defn tick [{size :size alive-positions :alive-positions}] 
   (->> (create-square-grid (range 0 size))
