@@ -2,17 +2,17 @@
   (:gen-class))
 
 (require 'clojure.set)
+(require '[clojure.core.match :refer [match]])
 
 ; rules
 
 
 
 (defn tick-cell [cell numberOfAliveNeighbours]
-  (case [(:alive cell), numberOfAliveNeighbours]
-    [true, 2] {:alive true}
-    [true, 3] {:alive true}
-    [false, 3] {:alive true}
-    {:alive false}))
+  (match [(:alive cell) numberOfAliveNeighbours]
+    [true 2] {:alive true}
+    [_ 3] {:alive true}
+    :else {:alive false}))
 
 ; create grid
 
