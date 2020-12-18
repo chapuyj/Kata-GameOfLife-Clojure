@@ -5,21 +5,14 @@
 
 ; rules
 
-(defn tick-for-alive-cell [numberOfAliveNeighbours]
-  (case numberOfAliveNeighbours
-    2 {:alive true}
-    3 {:alive true}
-    {:alive false}))
 
-(defn tick-for-dead-cell [numberOfAliveNeighbours]
-  (case numberOfAliveNeighbours
-    3 {:alive true}
-    {:alive false}))
 
 (defn tick-cell [cell numberOfAliveNeighbours]
-  (if (cell :alive)
-    (tick-for-alive-cell numberOfAliveNeighbours)
-    (tick-for-dead-cell numberOfAliveNeighbours)))
+  (case [(:alive cell), numberOfAliveNeighbours]
+    [true, 2] {:alive true}
+    [true, 3] {:alive true}
+    [false, 3] {:alive true}
+    {:alive false}))
 
 ; create grid
 
