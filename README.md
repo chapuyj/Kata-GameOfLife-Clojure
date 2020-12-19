@@ -48,6 +48,12 @@ In this second solution, I went further with the light grid. I removed the need 
 
 Then, in this third solution, I wanted to use only a grid (as a 2-dimensional array). And to do a complete loop. 
 
+```clojure
+[[:dead :alive :dead]
+[:dead :alive :dead]
+[:dead :alive :dead]]
+```
+
 ## Usage
 
 Made with [leiningen](https://leiningen.org/).
