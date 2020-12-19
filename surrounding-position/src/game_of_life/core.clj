@@ -4,28 +4,6 @@
 (require 'clojure.set)
 (require '[clojure.core.match :refer [match]])
 
-;;; Helpers
-
-; Create grid
-
-(defn create-line [line range]
-  (->> range
-       (map (fn [column] {:column column :line line}))))
-
-(defn create-square-grid [range]
-  (->> range
-       (map #(create-line % range))
-       (flatten)))
-
-; Position
-
-(defn relative-position [position relative-column relative-line]
-  (-> position
-      (update :column + relative-column)
-      (update :line + relative-line)))
-
-;;;
-
 ; Cell rules
 
 (defn alive? [cell] (= cell :alive))
@@ -39,26 +17,33 @@
 
 ; Neighbours
 
-(defn list-position-with-neighbours [{column :column line :line}]
-  (->> (create-square-grid (range -1 2))
-       (map #(relative-position % column line))))
+(def neighbours-pattern #{[-1, -1] [0, -1] [1, -1] [-1, 0] [1, 0] [-1, 1] [0, 1] [1, 1]})
+
+(defn relative-position [{column :column line :line} [relative-column, relative-line]]
+  {:column (+ column relative-column) :line (+ line relative-line)})
 
 (defn neighbours-for-position [position]
-  (->> (list-position-with-neighbours position)
-       (filter #(not= position %))
-       (set)))
+  (let [create-position (partial relative-position position)]
+    (->> neighbours-pattern
+         (map create-position)
+         (set))))
 
 (defn count-alive-neighbours [position alive-positions]
   (->> (neighbours-for-position position)
        (clojure.set/intersection alive-positions)
        (count)))
 
-; Grid
+(defn neighbours-and-position [position]
+  (-> (neighbours-for-position position)
+      (conj position)))
 
-(defn list-surrounding-positions [alive-positions]
-  (->> (map list-position-with-neighbours alive-positions)
+(defn neighbours-and-positions [positions]
+  (->> (map neighbours-and-position positions)
+       (map seq)
        (flatten)
        (set)))
+
+; Grid
 
 (defn cell-state [position alive-positions]
   (if (contains? alive-positions position) :alive :dead))
@@ -72,12 +57,12 @@
   (filter #(= :alive (tick-position % alive-positions)) positions))
 
 (defn tick-grid [{size :size alive-positions :alive-positions}]
-  (->> (list-surrounding-positions alive-positions)
+  (->> (neighbours-and-positions alive-positions)
        (keep-still-alive-after-tick alive-positions)
        (set)
        (assoc {:size size} :alive-positions)))
 
-; main
+; Main
 
 (defn -main
   "I don't do a whole lot ... yet."
