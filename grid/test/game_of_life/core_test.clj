@@ -43,3 +43,23 @@
                                                                      1 1 1
                                                                      1 1 1"))
            8))))
+
+(deftest tick-test
+
+  (testing "Block pattern."
+    (is (= (tick-grid (from-string "0 0 0 0
+                                    0 1 1 0
+                                    0 1 1 0
+                                    0 0 0 0"))
+           (from-string "0 0 0 0
+                         0 1 1 0
+                         0 1 1 0
+                         0 0 0 0"))))
+
+  (testing "Blinker pattern."
+    (is (= (tick-grid (from-string "0 0 0
+                                    1 1 1
+                                    0 0 0"))
+           (from-string "0 1 0
+                         0 1 0
+                         0 1 0")))))

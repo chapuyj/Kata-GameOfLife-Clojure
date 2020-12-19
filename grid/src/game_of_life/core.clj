@@ -37,6 +37,25 @@
        (filter alive?)
        (count)))
 
+; Grid
+
+(defn create-line-positions [line range]
+  (->> range
+       (map (fn [column] {:column column :line line}))))
+
+(defn create-square-grid-positions [size]
+  (let [range (range 0 size)]
+    (->> range
+         (map #(create-line-positions % range)))))
+
+(defn tick-positions [positions grid]
+  (->> positions
+       (map #(tick-cell (get-cell % grid) (count-alive-neighbours % grid)))))
+
+(defn tick-grid [grid] 
+  (->> (create-square-grid-positions (count grid))
+       (map #(tick-positions % grid))))
+
 ; Main
 
 (defn -main
