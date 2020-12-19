@@ -1,7 +1,7 @@
 # Kata - Game of Life - Clojure
 Game of Life kata in clojure.
 
-## Description
+## Kata Rules
 
 The universe of the Game of Life is an infinite, **two-dimensional orthogonal grid** of square ***cells***, each of which is in one of **two possible states, *live* or *dead***, (or populated and unpopulated, respectively). Every cell interacts with its **eight *neighbours***, which are the cells that are horizontally, vertically, or diagonally adjacent. 
 
@@ -21,7 +21,11 @@ The initial pattern constitutes the seed of the system. The first generation is 
 
 More on [wikipedia](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
-## Code
+## Kata solutions
+
+### [1 - Complete loop, return alive positions](/1-complete-loop-alive-positions)
+
+I started with a solution based on a *light grid*: we just need to remember where cells are alive (couples of column and line). We don't need to have more data to apply next generation or to draw grid.
 
 The grid is a square. The grid is represented by a map with
 - a size,
@@ -29,9 +33,20 @@ The grid is a square. The grid is represented by a map with
 
 `{:size 3 :alive-positions #{{:column 1 :line 2}}}`
 
-We can apply `tick` on a grid to get the next generation.
+We can apply `tick` on a grid to get the next generation. A complete loop is done: we are looping all possible cell in the grid, dead or alive, to apply rules and get the new state.
 
 `from-string` is a literate programming to create a grid from a *human string representation*.
+
+### [2 - Surrounding positions](/2-surrounding-positions)
+
+In this second solution, I went further with the light grid. I removed the need to do a complete loop when creating the next generation.
+
+- The grid is a set of *positions* where cells are alive. Because we do not need more informations. `#{{:column 1 :line 2}}}`
+- We loop only on living cells and their neighbours, when we apply a `tick-grid`. Because a dead cell without living neighbour stay dead.
+
+### [3 - Full grid](/3-full-grid)
+
+Then, in this third solution, I wanted to use only a grid (as a 2-dimensional array). And to do a complete loop. 
 
 ## Usage
 
