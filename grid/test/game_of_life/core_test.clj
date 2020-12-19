@@ -29,3 +29,17 @@
     (is (->> [0, 1, 2, 4, 5, 6, 7, 8]
              (mapv (partial tick-cell :dead))
              (every? dead?)))))
+
+(deftest count-alive-neighbours-test
+
+  (testing "Should be zero with an empty grid."
+    (is (= (count-alive-neighbours {:column 1 :line 1} (from-string "0 0 0
+                                                                     0 0 0
+                                                                     0 0 0"))
+           0)))
+
+  (testing "Should be 8 with a full grid."
+    (is (= (count-alive-neighbours {:column 1 :line 1} (from-string "1 1 1
+                                                                     1 1 1
+                                                                     1 1 1"))
+           8))))
