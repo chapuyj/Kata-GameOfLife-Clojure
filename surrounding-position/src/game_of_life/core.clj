@@ -1,8 +1,7 @@
 (ns game-of-life.core
+  (:require [clojure.set :refer [intersection]]
+            [clojure.core.match :refer [match]])
   (:gen-class))
-
-(require 'clojure.set)
-(require '[clojure.core.match :refer [match]])
 
 ; Cell rules
 
@@ -30,7 +29,7 @@
 
 (defn count-alive-neighbours [position alive-positions]
   (->> (neighbours-for-position position)
-       (clojure.set/intersection alive-positions)
+       (intersection alive-positions)
        (count)))
 
 (defn neighbours-and-position [position]
